@@ -1,44 +1,30 @@
-
+import 'package:eduapp/screen/branch_information.dart';
+import 'package:eduapp/screen/class%20subject.dart';
+import 'package:eduapp/screen/personnel.dart';
+import 'package:eduapp/screen/subject.dart';
+import 'package:eduapp/screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
-  List catNames = [
-    'ข้อมูลสาขา',
-    'ข้อมูลบุคลากร',
-    'วิชาในหลักสูตร',
-    'ห้องเรียนประจำสาขา',
-  ];
-
-  List<Color> catColors = [
-    Color(0xFFB155D1),
-    Color(0xFFB155D1),
-    Color(0xFFB155D1),
-    Color(0xFFB155D1),
-  ];
-
-  List<Icon> catIcons = [
-    Icon(Icons.assessment, color: Colors.white, size: 50),
-    Icon(Icons.person, color: Colors.white, size: 50),
-    Icon(Icons.menu_book, color: Colors.white, size: 50),
-    Icon(Icons.store, color: Colors.white, size: 50),
-    //Icon(Icons.play_circle_fill, color: Colors.white, size: 30),
-    //Icon(Icons.emoji_ev ents, color: Colors.white, size: 30),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(130),
+        preferredSize: Size.fromHeight(120),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          toolbarHeight: 65,
-          title: Image.asset(
-            'images/rmuttlogo.png',
-            height: 200,
-            width: 300,
+          toolbarHeight: 80,
+          title: Align(
+            alignment: Alignment.center,
+            child: Container(
+              height: 250,
+              child: Image.asset(
+                'images/rmuttlogo.png',
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           actions: [
             IconButton(
@@ -89,29 +75,29 @@ class HomePage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('หน้าแรก'),
-              leading: Icon(Icons.home),
+              title: const Text('หน้าแรก'),
+              leading: const Icon(Icons.home),
               onTap: () {
                 // Handle drawer item tap
               },
             ),
             ListTile(
-              title: Text('ช่วยเหลือ'),
-              leading: Icon(Icons.chat),
+              title: const Text('ช่วยเหลือ'),
+              leading: const Icon(Icons.chat),
               onTap: () {
                 // Handle drawer item tap
               },
             ),
             ListTile(
-              title: Text('เปลี่ยนภาษา'),
-              leading: Icon(Icons.language),
+              title: const Text('เปลี่ยนภาษา'),
+              leading: const Icon(Icons.language),
               onTap: () {
                 // Handle drawer item tap
               },
             ),
             ListTile(
-              title: Text('ข้อมูลเพื่มเติม'),
-              leading: Icon(Icons.priority_high),
+              title: const Text('ข้อมูลเพิ่มเติม'),
+              leading: const Icon(Icons.priority_high),
               onTap: () {
                 // Handle drawer item tap
               },
@@ -119,63 +105,67 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 20, left: 15, right: 15),
-        child: Column(
-          children: [
-            GridView.builder(
-              itemCount: catNames.length,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 1.1,
-              ),
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        color: catColors[index],
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: catIcons[index],
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      catNames[index],
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black.withOpacity(0.7),
-                      ),
-                    ),
-                  ],
-                );
-              },
+      body: GridView.count(
+  crossAxisCount: 2,
+  children: List.generate(4, (index) {
+    late Widget icon; // Declare the icon variable as a late Widget
+    switch (index) {
+      case 0:
+        icon = const Icon(Icons.assessment);
+        break;
+      case 1:
+        icon = const Icon(Icons.person);
+        break;
+      case 2:
+        icon = const Icon(Icons.menu_book);
+        break;
+      case 3:
+        icon = const Icon(Icons.store);
+        break;
+    }
+    return InkWell(
+      onTap: () {
+        if (index == 0) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Information(),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.newspaper, size: 30),
-                //SizedBox(width: 10),
-                SizedBox(height: 10,),
-                Text(
-                  'RMUTT NEWS',
-                  style: TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
+          );
+        } else if (index == 1) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Personnel(),
             ),
-          ],
+          );
+        } else if (index == 2) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SubjectRmutt(),
+            ),
+          );
+        } else if (index == 3) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Classroom(),
+            ),
+          );
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.grey[200], // Customize the background color
         ),
+        child: Center(child: icon), // Add the icon as a child of the Container
       ),
+    );
+  }),
+),
     );
   }
 }
+
