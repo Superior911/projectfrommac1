@@ -2,13 +2,15 @@ import 'package:eduapp/screen/branch_information.dart';
 import 'package:eduapp/screen/class%20subject.dart';
 import 'package:eduapp/screen/personnel.dart';
 import 'package:eduapp/screen/subject.dart';
-import 'package:eduapp/screen/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+
+    
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(120),
@@ -105,67 +107,335 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: GridView.count(
-  crossAxisCount: 2,
-  children: List.generate(4, (index) {
-    late Widget icon; // Declare the icon variable as a late Widget
-    switch (index) {
-      case 0:
-        icon = const Icon(Icons.assessment);
-        break;
-      case 1:
-        icon = const Icon(Icons.person);
-        break;
-      case 2:
-        icon = const Icon(Icons.menu_book);
-        break;
-      case 3:
-        icon = const Icon(Icons.store);
-        break;
-    }
-    return InkWell(
-      onTap: () {
-        if (index == 0) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Information(),
+      body: Column(
+        children: [
+          // SizedBox(height: height * 0.03),
+          SizedBox(
+            height: height * 0.358,
+            child: Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: (1/ .79),
+                shrinkWrap: true,
+                children: List.generate(4, (index) {
+                  late Widget icon; // Declare the icon variable as a late Widget
+
+                  switch (index) {
+                    case 0:
+                      icon = const Icon(
+                        Icons.equalizer,
+                        color: Colors.white,
+                        size: 50
+                                            );
+                      break;
+                    case 1:
+                      icon = const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 50,
+                      );
+                      break;
+                    case 2:
+                      icon = const Icon(
+                        Icons.menu_book,
+                        color: Colors.white,
+                        size: 50,
+                      );
+                      break;
+                    case 3:
+                      icon = const Icon(
+                        Icons.meeting_room,
+                        color: Colors.white,
+                        size: 50,
+                      );
+                      break;
+                  }
+                  return Container(
+                    margin: const EdgeInsets.only(top: 20.0),
+                    child: Column(
+                      children: [
+                        Stack(
+                            alignment: Alignment.topCenter,
+                            children: <Widget>[
+                              ClipOval(
+                                child: SizedBox(
+                                  height: 100,
+                                  width: 100,
+                                  child: Material(
+                                    color: Color(0xFFB155D1),
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(50),
+                                      splashColor: Colors.black,
+                                      onTap: () {
+                                        if (index == 0) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Information(),
+                                            ),
+                                          );
+                                        } else if (index == 1) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Personnel(),
+                                            ),
+                                          );
+                                        } else if (index == 2) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => SubjectRmutt(),
+                                            ),
+                                          );
+                                        } else if (index == 3) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => Classroom()
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      child: icon,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              // Positioned(
+                              //   bottom: 0,
+                              //   child: Text(
+                              //     index == 0
+                              //         ? 'ข้อมูลสาขา'
+                              //         : index == 1
+                              //             ? 'ข้อมูลบุคลากร'
+                              //             : index == 2
+                              //                 ? 'วิชาในหลักสูตร'
+                              //                 : 'ห้องเรียนประจำสาขา',
+                              //     style: TextStyle(
+                              //       color: Colors.black,
+                              //       fontSize: 16,
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 10.0),
+                            child: Text(
+                                index == 0
+                                    ? 'ข้อมูลสาขา'
+                                    : index == 1
+                                        ? 'ข้อมูลบุคลากร'
+                                        : index == 2
+                                            ? 'วิชาในหลักสูตร'
+                                            : 'ห้องเรียนประจำสาขา',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                ),
+                            ),
+                          )
+                      ],
+                    ),
+                  //   child: Stack(
+                  //   alignment: Alignment.topCenter,
+                  //   children: <Widget>[
+                  //     ClipOval(
+                  //       child: SizedBox(
+                  //         height: 100,
+                  //         width: 100,
+                  //         child: Material(
+                  //           color: Color(0xFFB155D1),
+                  //           child: InkWell(
+                  //             borderRadius: BorderRadius.circular(50),
+                  //             splashColor: Colors.black,
+                  //             onTap: () {
+                  //               if (index == 0) {
+                  //                 Navigator.push(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                     builder: (context) => Information(),
+                  //                   ),
+                  //                 );
+                  //               } else if (index == 1) {
+                  //                 Navigator.push(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                     builder: (context) => Personnel(),
+                  //                   ),
+                  //                 );
+                  //               } else if (index == 2) {
+                  //                 Navigator.push(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                     builder: (context) => SubjectRmutt(),
+                  //                   ),
+                  //                 );
+                  //               } else if (index == 3) {
+                  //                 Navigator.push(
+                  //                   context,
+                  //                   MaterialPageRoute(
+                  //                     builder: (context) => Classroom()
+                  //                   ),
+                  //                 );
+                  //               }
+                  //             },
+                  //             child: icon,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     Positioned(
+                  //       bottom: 0,
+                  //       child: Text(
+                  //         index == 0
+                  //             ? 'ข้อมูลสาขา'
+                  //             : index == 1
+                  //                 ? 'ข้อมูลบุคลากร'
+                  //                 : index == 2
+                  //                     ? 'วิชาในหลักสูตร'
+                  //                     : 'ห้องเรียนประจำสาขา',
+                  //         style: TextStyle(
+                  //           color: Colors.black,
+                  //           fontSize: 16,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // )
+                  );
+                }),
+              ),
+            )
+          ),
+          Container(
+            // height: height * 0.3,
+            margin: const EdgeInsets.only(top: 50.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.newspaper, size: 30),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  'RMUTT NEWS',
+                  style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
-          );
-        } else if (index == 1) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Personnel(),
-            ),
-          );
-        } else if (index == 2) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SubjectRmutt(),
-            ),
-          );
-        } else if (index == 3) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Classroom(),
-            ),
-          );
-        }
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.grey[200], // Customize the background color
-        ),
-        child: Center(child: icon), // Add the icon as a child of the Container
+          )
+          // Expanded(
+          //   child: GridView.count(
+          //     crossAxisCount: 2,
+          //     children: List.generate(4, (index) {
+          //       late Widget icon; // Declare the icon variable as a late Widget
+
+          //       switch (index) {
+          //         case 0:
+          //           icon = const Icon(
+          //             Icons.equalizer,
+          //             color: Colors.white,
+          //             size: 50
+          //                                 );
+          //           break;
+          //         case 1:
+          //           icon = const Icon(
+          //             Icons.person,
+          //             color: Colors.white,
+          //             size: 50,
+          //           );
+          //           break;
+          //         case 2:
+          //           icon = const Icon(
+          //             Icons.menu_book,
+          //             color: Colors.white,
+          //             size: 50,
+          //           );
+          //           break;
+          //         case 3:
+          //           icon = const Icon(
+          //             Icons.meeting_room,
+          //             color: Colors.white,
+          //             size: 50,
+          //           );
+          //           break;
+          //       }
+          //       return Stack(
+          //         alignment: Alignment.center,
+          //         children: <Widget>[
+          //           ClipOval(
+          //             child: SizedBox(
+          //               height: 100,
+          //               width: 100,
+          //               child: Material(
+          //                 color: Color(0xFFB155D1),
+          //                 child: InkWell(
+          //                   borderRadius: BorderRadius.circular(50),
+          //                   splashColor: Colors.black,
+          //                   onTap: () {
+          //                     if (index == 0) {
+          //                       Navigator.push(
+          //                         context,
+          //                         MaterialPageRoute(
+          //                           builder: (context) => Information(),
+          //                         ),
+          //                       );
+          //                     } else if (index == 1) {
+          //                       Navigator.push(
+          //                         context,
+          //                         MaterialPageRoute(
+          //                           builder: (context) => Personnel(),
+          //                         ),
+          //                       );
+          //                     } else if (index == 2) {
+          //                       Navigator.push(
+          //                         context,
+          //                         MaterialPageRoute(
+          //                           builder: (context) => SubjectRmutt(),
+          //                         ),
+          //                       );
+          //                     } else if (index == 3) {
+          //                       Navigator.push(
+          //                         context,
+          //                         MaterialPageRoute(
+          //                           builder: (context) => Classroom()
+          //                         ),
+          //                       );
+          //                     }
+          //                   },
+          //                   child: icon,
+          //                 ),
+          //               ),
+          //             ),
+          //           ),
+          //           Positioned(
+          //             bottom: 0,
+          //             child: Text(
+          //               index == 0
+          //                   ? 'ข้อมูลสาขา'
+          //                   : index == 1
+          //                       ? 'ข้อมูลบุคลากร'
+          //                       : index == 2
+          //                           ? 'วิชาในหลักสูตร'
+          //                           : 'ห้องเรียนประจำสาขา',
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontSize: 16,
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       );
+          //     }),
+          //   ),
+          // ),
+        ],
       ),
-    );
-  }),
-),
     );
   }
 }
-
