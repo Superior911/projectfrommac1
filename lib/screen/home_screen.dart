@@ -5,19 +5,13 @@ import 'package:eduapp/screen/personnel.dart';
 import 'package:eduapp/screen/subject.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:eduapp/screen/appbanner.dart';
 
 class HomePage extends StatelessWidget {
-  final List<String> newsImages = [
-    'images/news_image1.jpg',
-    'images/news_image2.jpg',
-    'images/news_image3.jpg',
-  ];
-  
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
 
-    
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(120),
@@ -118,50 +112,48 @@ class HomePage extends StatelessWidget {
         children: [
           // SizedBox(height: height * 0.03),
           SizedBox(
-            height: height * 0.358,
-            child: Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                childAspectRatio: (1/ .79),
-                shrinkWrap: true,
-                children: List.generate(4, (index) {
-                  late Widget icon; // Declare the icon variable as a late Widget
+              height: height * 0.358,
+              child: Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  childAspectRatio: (1 / .79),
+                  shrinkWrap: true,
+                  children: List.generate(4, (index) {
+                    late Widget
+                        icon; // Declare the icon variable as a late Widget
 
-                  switch (index) {
-                    case 0:
-                      icon = const Icon(
-                        Icons.equalizer,
-                        color: Colors.white,
-                        size: 50
-                                            );
-                      break;
-                    case 1:
-                      icon = const Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: 50,
-                      );
-                      break;
-                    case 2:
-                      icon = const Icon(
-                        Icons.menu_book,
-                        color: Colors.white,
-                        size: 50,
-                      );
-                      break;
-                    case 3:
-                      icon = const Icon(
-                        Icons.meeting_room,
-                        color: Colors.white,
-                        size: 50,
-                      );
-                      break;
-                  }
-                  return Container(
-                    margin: const EdgeInsets.only(top: 20.0),
-                    child: Column(
-                      children: [
-                        Stack(
+                    switch (index) {
+                      case 0:
+                        icon = const Icon(Icons.equalizer,
+                            color: Colors.white, size: 50);
+                        break;
+                      case 1:
+                        icon = const Icon(
+                          Icons.person,
+                          color: Colors.white,
+                          size: 50,
+                        );
+                        break;
+                      case 2:
+                        icon = const Icon(
+                          Icons.menu_book,
+                          color: Colors.white,
+                          size: 50,
+                        );
+                        break;
+                      case 3:
+                        icon = const Icon(
+                          Icons.meeting_room,
+                          color: Colors.white,
+                          size: 50,
+                        );
+                        break;
+                    }
+                    return Container(
+                      margin: const EdgeInsets.only(top: 20.0),
+                      child: Column(
+                        children: [
+                          Stack(
                             alignment: Alignment.topCenter,
                             children: <Widget>[
                               ClipOval(
@@ -178,7 +170,8 @@ class HomePage extends StatelessWidget {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => Information(),
+                                              builder: (context) =>
+                                                  Information(),
                                             ),
                                           );
                                         } else if (index == 1) {
@@ -192,15 +185,16 @@ class HomePage extends StatelessWidget {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => SubjectRmutt(),
+                                              builder: (context) =>
+                                                  SubjectRmutt(),
                                             ),
                                           );
                                         } else if (index == 3) {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => Classroom()
-                                            ),
+                                                builder: (context) =>
+                                                    Classroom()),
                                           );
                                         }
                                       },
@@ -214,26 +208,25 @@ class HomePage extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.only(top: 10.0),
                             child: Text(
-                                index == 0
-                                    ? 'ข้อมูลสาขา'
-                                    : index == 1
-                                        ? 'ข้อมูลบุคลากร'
-                                        : index == 2
-                                            ? 'วิชาในหลักสูตร'
-                                            : 'ห้องเรียนประจำสาขา',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 16,
-                                ),
+                              index == 0
+                                  ? 'ข้อมูลสาขา'
+                                  : index == 1
+                                      ? 'ข้อมูลบุคลากร'
+                                      : index == 2
+                                          ? 'วิชาในหลักสูตร'
+                                          : 'ห้องเรียนประจำสาขา',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
                             ),
                           )
-                      ],
-                    ),
-                       );
-                }),
-              ),
-            )
-          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ),
+              )),
           Container(
             // height: height * 0.3,
             margin: const EdgeInsets.only(top: 50.0),
@@ -254,9 +247,36 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
+          Container(
+              child: Column(
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 16.0),
+                height: 235,
+                decoration: BoxDecoration(color: Colors.white
+                ),
+                child: PageView.builder(
+                  controller: PageController(viewportFraction: 0.8),
+                  itemCount: appBannerList.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          image: DecorationImage(
+                            image:
+                                NetworkImage('${appBannerList[index].thumbnailUrl}'),
+                            fit: BoxFit.cover,
+                          )),
+                    );
+                  },
+                ),
+              ),
+              Row(),
+            ],
+          ))
         ],
       ),
     );
   }
 }
-
